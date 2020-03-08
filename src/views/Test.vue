@@ -32,19 +32,23 @@
 			}
 	  },
 	  created() {
-			this.$http.bindHandle(this);//绑定this
-			// 第一种调用写法，默认参数，返回数据绑定当前组件接口名，如loginIn
-			this.$http.login.loginIn();
+			// this.$http.bindHandle(this);//绑定this
+			// 第一种调用写法，默认参数，then处理回调
+			this.$http.login.loginIn().then((data)=>{
+				console.log("loginIn data",data);
+			});
 			// 第二种调用写法，传参，success处理回调
-			this.$http.login.loginIn({
-				type:'get',
-				data:{id:'888888'},
-				// bindName:'resData'
-				success:(data)=>{
-					console.log('登录成功回调',data);
-					this.loginData = data;
-				}
-			})
+			// this.$http.login.loginIn({
+			// 	type:'get',
+			// 	data:{id:'888888'},
+			// 	// bindName:'resData'
+			// 	success:(data)=>{
+			// 		console.log('登录成功回调',data);
+			// 		this.loginData = data;
+			// 	}
+			// }).then((data)=>{
+			// 		console.log("data3",data);
+			// 	});
 			
 			this.$http.login.loginOut({
 				type:'post',
@@ -61,7 +65,9 @@
 					console.log('用户列表第1次请求回调',data);
 					this.userList1 = data;
 				}
-			});//该接口2秒后才返回数据
+			}).then((data)=>{
+						console.log("userlist data",data);
+			});;//该接口2秒后才返回数据
 			setTimeout(()=>{ //在上一个接口还没返回数据1S后再次调用，不会重复请求
 				this.$http.user.userList({
 					type:'get',
@@ -69,7 +75,9 @@
 						console.log('用户列表第2次请求回调',data);//不会输出
 						this.userList2 = data;
 					}
-				});//该接口2秒后才返回数据
+				}).then((data)=>{
+						console.log("userlist data222",data);
+					});//该接口2秒后才返回数据
 			},1000)
 	  },
 	  mounted() {
