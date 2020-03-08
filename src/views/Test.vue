@@ -34,9 +34,9 @@
 	  created() {
 			// this.$http.bindHandle(this);//绑定this
 			// 第一种调用写法，默认参数，then处理回调
-			this.$http.login.loginIn().then((data)=>{
-				console.log("loginIn data",data);
-			});
+			// this.$http.login.loginIn().then((data)=>{
+			// 	console.log("loginIn data",data);
+			// });
 			// 第二种调用写法，传参，success处理回调
 			// this.$http.login.loginIn({
 			// 	type:'get',
@@ -50,14 +50,14 @@
 			// 		console.log("data3",data);
 			// 	});
 			
-			this.$http.login.loginOut({
-				type:'post',
-				data:{id:'99999'},
-				success:(data)=>{
-					console.log('退出成功回调',data);
-					this.loginOut = data;
-				}
-			})
+			// this.$http.login.loginOut({
+			// 	type:'post',
+			// 	data:{id:'99999'},
+			// 	success:(data)=>{
+			// 		console.log('退出成功回调',data);
+			// 		this.loginOut = data;
+			// 	}
+			// })
 			
 			this.$http.user.userList({
 				type:'get',
@@ -66,8 +66,10 @@
 					this.userList1 = data;
 				}
 			}).then((data)=>{
-						console.log("userlist data",data);
-			});;//该接口2秒后才返回数据
+				console.log("userlist data",data);
+			}).catch(error=>{
+				console.log('error',error);
+			});//该接口2秒后才返回数据
 			setTimeout(()=>{ //在上一个接口还没返回数据1S后再次调用，不会重复请求
 				this.$http.user.userList({
 					type:'get',

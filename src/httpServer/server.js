@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const service = axios.create({
 	baseURL:'http://localhost:8888/',
-	timeout:5000
+	timeout:2000
 })
 // 设置请求拦截器
 service.interceptors.request.use(function (config) {
@@ -19,6 +19,9 @@ service.interceptors.response.use(function (response) {
     return response;
   }, function (error) {
     // Do something with response error
+		if(error.message.includes('timeout')){
+			console.log("超时错误", error);
+		}
     return Promise.reject(error);
   });
 export default service;
