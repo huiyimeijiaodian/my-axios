@@ -2,7 +2,7 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 // import store from "./store";
-import httpApi from './httpApi/index.js';
+import httpApi from './http_api/index.js';
 Vue.config.productionTip = false;
 Vue.prototype.$http = httpApi;
 new Vue({
